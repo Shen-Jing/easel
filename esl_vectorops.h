@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Vector operations.
  */
 #ifndef eslVECTOROPS_INCLUDED
@@ -151,3 +154,6 @@ extern int    esl_vec_FLog2Validate(const float  *vec, int n, float  tol, char *
 
 #endif /* eslVECTOROPS_INCLUDED */
 
+#ifdef __cplusplus
+}
+#endif
