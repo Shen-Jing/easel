@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Sequence weighting algorithms.
  * 
  * SRE, Sun Nov  5 09:11:13 2006 [Janelia]
@@ -79,3 +82,7 @@ extern int esl_msaweight_IDFilter_adv(const ESL_MSAWEIGHT_CFG *cfg, const ESL_MS
 
 
 #endif /*eslMSAWEIGHT_INCLUDED*/
+
+#ifdef __cplusplus
+}
+#endif

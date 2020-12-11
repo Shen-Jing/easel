@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Command line, config file, and environment variable
  * configuration of an application. Extends standard
  * UNIX/POSIX/GNU getopt().
@@ -116,3 +119,7 @@ extern int esl_opt_DisplayHelp(FILE *ofp, const ESL_GETOPTS *go, int docgroup, i
 }
 #endif
 #endif /*eslGETOPTS_INCLUDED*/
+
+#ifdef __cplusplus
+}
+#endif

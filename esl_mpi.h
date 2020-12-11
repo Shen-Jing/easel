@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Support for MPI parallelization.
  */
 #ifndef eslMPI_INCLUDED
@@ -64,3 +67,7 @@ extern int esl_stopwatch_MPIReduce(ESL_STOPWATCH *w, int root, MPI_Comm comm);
 
 #endif /*HAVE_MPI*/
 #endif /*eslMPI_INCLUDED*/
+
+#ifdef __cplusplus
+}
+#endif

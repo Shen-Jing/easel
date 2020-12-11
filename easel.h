@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Easel's foundation.
  *
  * Core functionality of easel: errors, memory allocations, constants,
@@ -522,3 +525,6 @@ extern int  esl_CCompare(char *s1, char *s2);
 #endif /*eslEASEL_INCLUDED*/
 
 
+#ifdef __cplusplus
+}
+#endif

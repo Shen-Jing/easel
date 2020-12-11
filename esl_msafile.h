@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Multiple sequence alignment file i/o
  *
  * See also: esl_msafile2.[ch], which contains a legacy ESL_MSAFILE2 interface
@@ -134,3 +137,7 @@ extern int esl_msafile_PutLine(ESL_MSAFILE *afp);
 #include "esl_msafile_selex.h"
 #include "esl_msafile_stockholm.h"
 #endif /*eslMSAFILE_INCLUDED*/
+
+#ifdef __cplusplus
+}
+#endif

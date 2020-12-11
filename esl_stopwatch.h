@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Tracking cpu/system/elapsed time used by a process.
  * 
  * SRE, Wed Feb 22 19:30:36 2006 [St. Louis] [moved to Easel]
@@ -55,3 +58,7 @@ extern int esl_stopwatch_Include(ESL_STOPWATCH *master, ESL_STOPWATCH *w);
 #endif /*eslSTOPWATCH_INCLUDED*/ 
 
 
+
+#ifdef __cplusplus
+}
+#endif

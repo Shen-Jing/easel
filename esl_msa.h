@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Multiple sequence alignments 
  */
 #ifndef eslMSA_INCLUDED
@@ -205,3 +208,7 @@ extern int      esl_msa_Sample(ESL_RANDOMNESS *rng, ESL_ALPHABET *abc, int max_n
 #endif
 #endif /*eslMSA_INCLUDED*/
 
+
+#ifdef __cplusplus
+}
+#endif

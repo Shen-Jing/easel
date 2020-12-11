@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Digital representation of biosequence symbols in Easel.
  */
 #ifndef eslALPHABET_INCLUDED
@@ -130,3 +133,7 @@ extern int    esl_abc_ValidateSeq(const ESL_ALPHABET *a, const char *seq, int64_
 }
 #endif
 #endif /*eslALPHABET_INCLUDED*/
+
+#ifdef __cplusplus
+}
+#endif

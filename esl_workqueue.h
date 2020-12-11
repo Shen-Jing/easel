@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* Simple threaded work queue using POSIX threads.
  */
 #ifndef eslWORKQUEUE_INCLUDED
@@ -37,3 +40,7 @@ extern int esl_workqueue_Dump(ESL_WORK_QUEUE *queue);
 
 #endif /*eslWORKQUEUE_INCLUDED*/
 
+
+#ifdef __cplusplus
+}
+#endif
