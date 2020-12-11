@@ -164,7 +164,7 @@ extern "C" {
        esl_exception(status, FALSE, __FILE__, __LINE__, "zero malloc disallowed"); \
        goto ERROR;\
     }\
-    if ( ((p) = malloc(size)) == NULL)  { \
+    if ( ((p) = reinterpret_cast<decltype(p)>(malloc(size))) == NULL)  { \
        status = eslEMEM;\
        esl_exception(status, FALSE, __FILE__, __LINE__, "malloc of size %d failed", size); \
        goto ERROR;\
