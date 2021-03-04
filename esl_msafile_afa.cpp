@@ -13,13 +13,16 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "easel.h"
+#include <string>
+#include <vector>
+
+#include "easel.hpp"
 #include "esl_alphabet.h"
 #include "esl_mem.h"
 #include "esl_msa.h"
 #include "esl_msafile.h"
 
-#include "esl_msafile_afa.h"
+#include "esl_msafile_afa.hpp"
 
 /*****************************************************************
  *# 1. API for reading/writing AFA format
@@ -179,7 +182,7 @@ esl_msafile_afa_GuessAlphabet(ESL_MSAFILE *afp, int *ret_type)
  *            <afp> is undefined.
  */
 int
-esl_msafile_afa_Read(ESL_MSAFILE *afp, ESL_MSA **ret_msa)
+esl_msafile_afa_Read(ESL_MSAFILE *afp, ESL_MSA **ret_msa, const std::vector<std::string> msa_sequences)
 {
   ESL_MSA  *msa  = NULL;
   int       idx  = 0;
@@ -209,7 +212,19 @@ esl_msafile_afa_Read(ESL_MSAFILE *afp, ESL_MSA **ret_msa)
   //   p++; n--;			/* advance past > */
 
   //   if ( (status = esl_memtok(&p, &n, " \t", &tok, &ntok)) != eslOK) ESL_XFAIL(eslEFORMAT, afp->errmsg, "no name found for aligned FASTA record");
-  //   if (idx >= msa->sqalloc && (status = esl_msa_Expand(msa))    != eslOK) goto ERROR;
+  /* 檢查是否有超過目前分配的 nseq（預設初始分配 16 條） */
+  auto num_of_seq = msa_sequences.size();
+  for ( ; idx < num_of_seq; ++idx)
+  {
+      if (idx >= msa->sqalloc && (status = esl_msa_Expand(msa))    != eslOK) goto ERROR;
+      const auto &sequnce = msa_sequences[idx];
+      p = sequnce.data();
+      this_alen = n = sequnce.length():
+      if (msa->abc)
+      {
+          status = esl_abc_dsqcat(afp->inmap, &(msa->ax[idx]),   &this_alen, p, n);
+      }
+  }
 
   //   if (     (status = esl_msa_SetSeqName       (msa, idx, tok, ntok)) != eslOK) goto ERROR;
   //   if (n && (status = esl_msa_SetSeqDescription(msa, idx, p,   n))    != eslOK) goto ERROR;
@@ -220,23 +235,22 @@ esl_msafile_afa_Read(ESL_MSAFILE *afp, ESL_MSA **ret_msa)
      * input is bad and a sequence is too long. Could gain ~25% or so that way (quickie
      * test on PF00005 Full)
      */
-    this_alen = 0;
-    while ((status = esl_msafile_GetLine(afp, &p, &n)) == eslOK)
-    {
-      while (n && isspace(*p)) { p++; n--; } /* tolerate and skip leading whitespace on line */
-      if (n  == 0)   continue;	       /* tolerate and skip blank lines */
-      if (*p == '>') break;
+    // this_alen = 0;
+    // while ((status = esl_msafile_GetLine(afp, &p, &n)) == eslOK)
+    // {
+    //   while (n && isspace(*p)) { p++; n--; } /* tolerate and skip leading whitespace on line */
+    //   if (n  == 0)   continue;	       /* tolerate and skip blank lines */
+    //   if (*p == '>') break;
 
-      if (msa->abc)   { status = esl_abc_dsqcat(afp->inmap, &(msa->ax[idx]),   &this_alen, p, n); }
       // if (! msa->abc) { status = esl_strmapcat (afp->inmap, &(msa->aseq[idx]), &this_alen, p, n); }
       // if (status == eslEINVAL)   ESL_XFAIL(eslEFORMAT, afp->errmsg, "one or more invalid sequence characters");
       // else if (status != eslOK)  goto ERROR;
-    }
+    // }
     if (this_alen == 0)            ESL_XFAIL(eslEFORMAT, afp->errmsg, "sequence %s has alen %" PRId64 , msa->sqname[idx], this_alen);
     if (alen && alen != this_alen) ESL_XFAIL(eslEFORMAT, afp->errmsg, "sequence %s has alen %" PRId64 "; expected %" PRId64, msa->sqname[idx], this_alen, alen);
 
-    alen = this_alen;
-    idx++;
+    // alen = this_alen;
+    // idx++;
   // } while (status == eslOK);	/* normally ends on eslEOF. */
 
   msa->nseq = idx;
